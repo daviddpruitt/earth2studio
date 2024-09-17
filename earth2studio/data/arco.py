@@ -132,6 +132,16 @@ class ARCO:
         else:
             if not np.array_equal(self.zarr_cache["longitude"][:], self.zarr_group["longitude"]):
                 raise ValueError("Longitude coordinate system in zarr cache is different from ARCO data source")
+        if "level" not in list(self.zarr_cache.keys()):
+            logger.debug(
+                f"Initalizing longitude coordinate system for ARCO data source for {self.zarr_cache}"
+            )
+            self.zarr_cache.create_dataset("level", data=self.zarr_group["level"])
+            for key, value in self.zarr_group["level"].attrs.items():
+                self.zarr_cache["level"].attrs[key] = value
+        else:
+            if not np.array_equal(self.zarr_cache["level"][:], self.zarr_group["level"]):
+                raise ValueError("Level coordinate system in zarr cache is different from ARCO data source")
 
         # Consulidate all variables
         zarr.consolidate_metadata(self.zarr_cache.store)
@@ -173,7 +183,7 @@ class ARCO:
                     array = modifier(self.zarr_group[arco_variable][time_index])
                 # Atmospheric variable
                 else:
-                    level_index = np.where(level_coords == int(level))[0][0]
+                    level_index = np.where(self.zarr_cache["level"][:] == int(level))[0][0]
                     array = modifier(
                         self.zarr_group[arco_variable][time_index, level_index]
                     )

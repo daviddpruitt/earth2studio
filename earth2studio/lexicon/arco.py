@@ -118,6 +118,9 @@ class ARCOLexicon(metaclass=LexiconType):
         "q850": "specific_humidity::850",
         "q925": "specific_humidity::925",
         "q1000": "specific_humidity::1000",
+        "land_sea_mask": "land_sea_mask::",
+        "z": "geopotential_at_surface::",
+        "sst": "sea_surface_temperature::",
     }
 
     @classmethod
