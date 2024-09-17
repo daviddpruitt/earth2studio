@@ -12,6 +12,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache 2.0"}
 dependencies = [
+    "apache_beam",
     "cdsapi >= 0.6.1",
     "cfgrib >= 0.9.10.3",
     "cftime",
@@ -22,6 +23,7 @@ dependencies = [
     "gcsfs",
     "h5py>=3.2.0",
     "h5netcdf>=1.0.0",
+    "healpy",
     "herbie-data",
     "huggingface-hub>=0.4.0",
     "importlib_metadata",
